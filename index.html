@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="estilo.css">
+        <link rel="icon" type="image/jpg" href="Imagenes labo/logo.jpg">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script src="./js/logica.js" type="module" defer></script>
+        <title>Halloween</title>
+    </head>
+
+    <body>
+        <header>
+            <a href="index.html"> <img src="Imagenes labo/logo.jpg" alt="logo"> </a>
+            <nav>
+                <a href="infoMonstruos.html">Home</a>
+                <a href="index.html">Monstruos</a>
+                <a href="#blog">Blog</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </header>
+
+        <main>
+            <form id="formulario">
+                <h2>Crud monstruos</h2>
+                <section class="input-group">
+                    <input type="hidden" name="txtId">
+                    
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" placeholder="Ingrese nombre">
+                    
+                    <label for="alias">
+                        <img class="icono-alias" src="Imagenes labo/icono-alias.png"  alt="Imagen alias">Alias
+                    </label>
+                    <input type="text" name="alias" id="alias" placeholder="Ingrese Alter-Ego">
+                    
+                    <fieldset id = "botones">
+                        <legend>
+                            <img class="icono-defensa" src="Imagenes labo/icono-defensa.png" alt="Imagen defensa">Defensa:
+                        </legend>
+                        <input type="radio" name="defensa" id="pocionRadio" value="pocion">Pocion
+                        <br>
+                        <input type="radio" name="defensa" id="crucifijoRadio" value="crucifijo" checked>Crucifijo
+                        <br>
+                        <input type="radio" name="defensa" id="estacaRadio" value="estaca">Estaca
+                        <br>
+                        <input type="radio" name="defensa" id="plataRadio" value="plata">Plata
+                    </fieldset>
+
+                    <label for="miedo">
+                        <img class="icono-miedo" src="Imagenes labo/miedo3.png" alt="Imagen miedo">Miedo
+                    </label>
+                    <input type="range" min="0" max="100" value="50" step="1" id="miedo" name="miedo">
+                    <label for="tipo">
+                        <img class="icono-tipo" src="Imagenes labo/monstruo.png" alt="Imagen tipo">Tipo
+                    </label>
+
+                    <select id="miSelect" name="tipo"></select>
+                 
+                    <button type="submit" class="btn-con-imagen">
+                        <img src="Imagenes labo/boton-guardar.png" alt="Imagen guardar">
+                        <span>Guardar</span>
+                    </button>
+
+                    <button type="button" class="btn-con-imagen" value="eliminar">
+                        <img src="Imagenes labo/eliminar.png" alt="Imagen eliminar">
+                        <span>Eliminar</span>
+                    </button>
+
+                    <section id="spinner-container" class="spinner-container" style="display: none;">
+                        <img src="Imagenes labo/fondopagina.gif">
+                        <p>Cargando...</p>
+                        <section class="spinner"></section>
+                    </section>
+                    
+                </section>
+            </form>
+
+            <section id="tabla"></section>
+        </main>
+
+        <footer>
+            <p>LABORATORIO III-TODOS LOS DERECHOS RESERVADOS 2023©</p>
+        </footer>
+
+    </body>
+</html>

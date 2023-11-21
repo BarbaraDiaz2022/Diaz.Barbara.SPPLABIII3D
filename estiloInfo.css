@@ -1,0 +1,88 @@
+header 
+{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    height: 70px;
+    /* position: fixed; */
+    width: 100%;
+    margin:auto;
+    padding:15px;
+    background-color: orange;
+    z-index: 2;
+}
+header a img
+{
+    width: 100px;
+    vertical-align: middle;
+    margin-right: 15px;
+    font-size: 25px;
+}
+
+nav a 
+{ 
+    color: black;
+    margin-left: 40px;
+    margin-right: 40px;
+    padding: 8px;
+    font-size: 25px;    
+}
+
+body
+{
+    background-image: url('fondo.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+@media only screen and (max-width: 50px) 
+{
+    nav a
+    {
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+footer 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: #f58e09e7;
+    color: black;
+    text-align: center;
+    margin-top: 600px;
+}
+
+
+
+.icono-alias
+{
+    width: 40px;
+    height: 40px;
+}
+.icono-defensa
+{
+    width: 35px;
+    height: 35px;
+}
+
+.icono-miedo
+{
+    width: 45px;
+    height: 45px;
+}
+.icono-tipo
+{
+    width: 35px;
+    height: 35px;
+}
+#miSelect
+{
+    cursor:pointer;
+}
+
