@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap');
+
 header 
 {
     display: flex;
@@ -19,31 +21,75 @@ header a img
     font-size: 25px;
 }
 
-nav a 
-{ 
-    color: black;
-    margin-left: 40px;
-    margin-right: 40px;
-    padding: 8px;
-    font-size: 25px;    
-}
-
-body
-{
+body {
     background-image: url('fondo.jpg');
+    font-family: 'Raleway', sans-serif;
+    color: black;
+    font-size: 16px;
+    font-weight: 400;
+    background-position: center;
     background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
     background-attachment: fixed;
+    background-size: cover;
 }
 
-@media only screen and (max-width: 50px) 
-{
-    nav a
-    {
-        flex-direction: column;
-        width: 100%;
+
+header a {
+    color: #49c935;
+    font-weight: 3000;
+}.navbar a {
+    margin-left: 30px;
+    margin-right: 30px;
+    padding: 15px;
+    font-size: 20px;
+}
+
+.navbar a:hover {
+    background: #d147f468;
+}
+
+.info{
+    color: #fcfcfc;
+    font-size: 30px;
+    font-weight: 400;
+    margin-top: 50px; 
+    text-align: center;
     }
+
+#contenedorMonstruos {
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    margin-top: 100px;    
+}
+
+.monstruo-card {        
+    border-radius: 8px;
+    border-color: black;
+    width: 30%;
+    margin: 20px; /* Ajusta el espacio entre las tarjetas */
+    text-align: center; /* Centra el contenido dentro de cada tarjeta */
+}
+
+.monstruo-card .card-body {
+    background-color: rgb(0, 0, 0);
+    color: rgb(243, 243, 243);
+    font-size: 20px;
+}
+
+.monstruo-card .card-header{
+    color: rgb(0, 0, 0);
+    background-color: rgb(180, 134, 34);
+    font-weight: 700;
+}
+
+.monstruo-texto {
+    flex-grow: 1; /* Hace que el texto ocupe todo el espacio disponible */
+}
+
+.monstruo-texto .icono {
+    width: 20px; /* Ajusta el ancho de la imagen según tus necesidades */   
+    margin-right: 10px;
 }
 
 footer 
@@ -55,34 +101,5 @@ footer
     background-color: #f58e09e7;
     color: black;
     text-align: center;
-    margin-top: 600px;
-}
 
-
-
-.icono-alias
-{
-    width: 40px;
-    height: 40px;
 }
-.icono-defensa
-{
-    width: 35px;
-    height: 35px;
-}
-
-.icono-miedo
-{
-    width: 45px;
-    height: 45px;
-}
-.icono-tipo
-{
-    width: 35px;
-    height: 35px;
-}
-#miSelect
-{
-    cursor:pointer;
-}
-

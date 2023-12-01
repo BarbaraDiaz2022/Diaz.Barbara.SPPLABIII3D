@@ -1,3 +1,4 @@
+
 export const crearTabla = (data)=>{
 
     if(!Array.isArray(data)) return null;
@@ -25,9 +26,7 @@ const crearCabecera = (elemento) =>{
     }
 
     tHead.appendChild(headRow);
-
     return tHead;
-
 };
 
 const crearCuerpo = (data) =>{

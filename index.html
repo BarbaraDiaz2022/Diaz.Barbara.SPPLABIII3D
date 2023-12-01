@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="estilo.css">
+        
         <link rel="icon" type="image/jpg" href="Imagenes labo/logo.jpg">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script src="./js/logica.js" type="module" defer></script>
@@ -14,8 +15,8 @@
         <header>
             <a href="index.html"> <img src="Imagenes labo/logo.jpg" alt="logo"> </a>
             <nav>
-                <a href="infoMonstruos.html">Home</a>
-                <a href="index.html">Monstruos</a>
+                <a href="index.html">Home</a>
+                <a href="infoMonstruos.html">Monstruos</a>
                 <a href="#blog">Blog</a>
                 <a href="#contacto">Contacto</a>
             </nav>
@@ -56,17 +57,18 @@
                         <img class="icono-tipo" src="Imagenes labo/monstruo.png" alt="Imagen tipo">Tipo
                     </label>
 
-                    <select id="miSelect" name="tipo"></select>
+                    <select id="miSelect" name="tipo" class="form-select" aria-label="Seleccionar tipo"></select>
                  
                     <button type="submit" class="btn-con-imagen">
                         <img src="Imagenes labo/boton-guardar.png" alt="Imagen guardar">
                         <span>Guardar</span>
                     </button>
 
-                    <button type="button" class="btn-con-imagen" value="eliminar">
+                    <button type="button" class="btn-con-imagen" value="eliminar" id="eliminar">
                         <img src="Imagenes labo/eliminar.png" alt="Imagen eliminar">
                         <span>Eliminar</span>
                     </button>
+
 
                     <section id="spinner-container" class="spinner-container" style="display: none;">
                         <img src="Imagenes labo/fondopagina.gif">
@@ -76,6 +78,52 @@
                     
                 </section>
             </form>
+            
+            <div class="contenedor-filtros">
+                <section id="filtroMonstruos">
+                    <h2>Filtrar por Tipo de Monstruo</h2>
+                    <select id="selectFiltroTipo" class="form-select" aria-label="Filtrar por Tipo de Monstruo">
+                        <option value="Todos">Todos</option>
+                        <option value="Vampiro">Vampiro</option>
+                        <option value="Hombre Lobo">Hombre Lobo</option>
+                        <option value="Fantasma">Fantasma</option>
+                        <option value="Esqueleto">Esqueleto</option>
+                        <option value="Bruja">Bruja</option>
+                        <option value="Zombie">Zombie</option>
+                    </select>
+                    <button id="btnFiltrar" class="btn btn-primary">Filtrar</button>
+                </section>
+    
+                <section class="contenedor-promedios-checkboxes">
+                    <label for="promedioMiedo" class="promedioMiedoLabel">Promedio total de Miedo:</label>
+                    <input type="text" id="promedioMiedo" readonly>
+                    
+                    <label for="miedoMaxima" class="miedoMaximaLabel">Miedo maximo:</label>
+                    <input type="text" id="miedoMaximo" readonly>
+        
+                    <label for="miedoMinimo" class="miedoMinimoLabel">Miedo minimo:</label>
+                    <input type="text" id="miedoMinimo" readonly>
+        
+        
+                    <div>
+                        <!--prueba de checkbox-->
+                        <input type="checkbox" class ="opcionesCheckbox" id="chkNombre" checked>
+                        <label for="chkNombre">Nombre</label>
+            
+                        <input type="checkbox" id="chkAlias" checked>
+                        <label for="chkAlias">Alias</label>
+            
+                        <input type="checkbox" id="chkDefensa" checked>
+                        <label for="chkDefensa">Defensa</label>
+            
+                        <input type="checkbox" id="chkMiedo" checked>
+                        <label for="chkMiedo">Miedo</label>
+            
+                        <input type="checkbox" id="chkTipo" checked>
+                        <label for="chkTipo">Tipo</label>
+                    </div>
+                </section>
+            </div>
 
             <section id="tabla"></section>
         </main>

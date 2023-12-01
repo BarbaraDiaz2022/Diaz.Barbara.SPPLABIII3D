@@ -183,3 +183,81 @@ td
     color: #f5f5f5; 
 }
 
+
+#filtroMonstruos,
+#promedioMiedoLabel,
+#promedioMiedo {
+  display: inline-block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
+
+#filtroMonstruos {
+    color: rgb(253, 253, 253);
+    margin-left: 50px;       
+}   
+
+#selectFiltroTipo {
+    width: 200px; 
+    margin-left: 20px;
+}
+
+#btnFiltrar {
+    display: block; 
+    background-color: #d87607;
+    color: rgb(235, 26, 26);
+    transition: 0.3s;
+    padding: 10px;
+    font-weight: 700;
+    color: #000000;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+/* #promedioMiedo{
+    width: 200px; 
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+.promedioMiedoLabel{
+    color: rgb(255, 255, 255);
+    font-weight: 30px;
+} */
+.promedioMiedoLabel,
+.miedoMaximaLabel,
+.miedoMinimoLabel {
+    margin-left: 500px;
+    display: block;
+    margin-bottom: 5px; /* Ajusta este valor según sea necesario */
+}
+
+#promedioMiedo,
+#miedoMaximo,
+#miedoMinimo {
+    margin-left: 500px;
+    color: rgb(0, 0, 0);
+    font-weight: 30px;
+    width: 20%;
+    box-sizing: border-box;
+}
+
+.opcionesCheckbox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.opcionesCheckbox input {
+    margin-right: 5px;
+}
+
+.contenedor-filtros
+{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
