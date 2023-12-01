@@ -6,8 +6,7 @@ const $formulario = document.forms.formulario;
 let listaMonstruos = [];
 
 /**codigo segundo parcial  */
-async function obtenerMonstruos() //obtengo la lista de monstruos de json-server
-{
+async function obtenerMonstruos(){ //traigo la lista del jsonserver
     try
     {
         const respuesta = await fetch(URL);
@@ -57,7 +56,7 @@ $seccionTabla.addEventListener("click",(evento) =>{
 });
 
 
-/**filtrar por tipo de monstruo */
+/*filtro del tipo de monstruos */
 document.getElementById("btnFiltrar").addEventListener("click",()=>{
     const tipoSeleccionado = document.getElementById("selectFiltroTipo").value;
 
@@ -285,7 +284,8 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 });
 
-function ocultarCarga() {
+function ocultarCarga() 
+{
     let loader = document.getElementById("spinner-container");
     loader.style.display = "none";
 }
@@ -312,3 +312,18 @@ function mostrarSpinner()
         return false;
     }
 }
+
+function toggleColumn(columnIndex) 
+{
+    let table = document.getElementById("tabla");
+    let checkboxes = document.querySelectorAll('.opcionesCheckbox');
+
+    checkboxes.forEach(function (checkbox, index) {
+        let column = table.querySelectorAll(`td:nth-child(${columnIndex + 1}), th:nth-child(${columnIndex + 1})`);
+        column.forEach(function (cell) {
+            cell.style.display = checkbox.checked ? "" : "none";
+        });
+    });
+}
+
+window.toggleColumn = toggleColumn;

@@ -69,3 +69,4 @@ export const actualizarTabla = (contenedor,data)=>{
     }
     contenedor.appendChild(crearTabla(data));
 };
+

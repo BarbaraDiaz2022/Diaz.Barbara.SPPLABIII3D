@@ -107,19 +107,19 @@
         
                     <div>
                         <!--prueba de checkbox-->
-                        <input type="checkbox" class ="opcionesCheckbox" id="chkNombre" checked>
+                        <input type="checkbox" class ="opcionesCheckbox" id="chkNombre" onclick="toggleColumn(0)" checked>
                         <label for="chkNombre">Nombre</label>
             
-                        <input type="checkbox" id="chkAlias" checked>
+                        <input type="checkbox" class ="opcionesCheckbox" id="chkAlias" onclick="toggleColumn(1)" checked>
                         <label for="chkAlias">Alias</label>
             
-                        <input type="checkbox" id="chkDefensa" checked>
+                        <input type="checkbox" class ="opcionesCheckbox" id="chkDefensa" onclick="toggleColumn(2)" checked>
                         <label for="chkDefensa">Defensa</label>
             
-                        <input type="checkbox" id="chkMiedo" checked>
+                        <input type="checkbox" class ="opcionesCheckbox" id="chkMiedo" onclick="toggleColumn(3)" checked>
                         <label for="chkMiedo">Miedo</label>
             
-                        <input type="checkbox" id="chkTipo" checked>
+                        <input type="checkbox" class ="opcionesCheckbox" id="chkTipo" onclick="toggleColumn(4)" checked>
                         <label for="chkTipo">Tipo</label>
                     </div>
                 </section>
@@ -131,6 +131,5 @@
         <footer>
             <p>LABORATORIO III-TODOS LOS DERECHOS RESERVADOS 2023©</p>
         </footer>
-
     </body>
 </html>
