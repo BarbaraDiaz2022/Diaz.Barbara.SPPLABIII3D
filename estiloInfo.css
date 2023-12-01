@@ -35,7 +35,7 @@ body {
 
 
 header a {
-    color: #49c935;
+    color: #c7e9c2;
     font-weight: 3000;
 }.navbar a {
     margin-left: 30px;
@@ -45,15 +45,16 @@ header a {
 }
 
 .navbar a:hover {
-    background: #d147f468;
+    background: rgba(244, 241, 71, 0.408);
 }
 
 .info{
-    color: #fcfcfc;
+    color: #000000;
     font-size: 30px;
     font-weight: 400;
     margin-top: 50px; 
     text-align: center;
+    background-color: blanchedalmond;
     }
 
 #contenedorMonstruos {

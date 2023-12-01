@@ -2,10 +2,11 @@
 export const crearTabla = (data)=>{
 
     if(!Array.isArray(data)) return null;
+    const datosOrdenados = data.slice().sort((a, b) => b.miedo - a.miedo);
 
     const tabla = document.createElement("table");
-    tabla.appendChild(crearCabecera(data[0]));
-    tabla.appendChild(crearCuerpo(data));
+    tabla.appendChild(crearCabecera(datosOrdenados[0]));
+    tabla.appendChild(crearCuerpo(datosOrdenados));
 
     return tabla;
 };
@@ -38,7 +39,6 @@ const crearCuerpo = (data) =>{
     data.forEach((element) => {
 
         const tr = document.createElement("tr");
-        // tr.addEventListener("click" , handlerClick);
         
         for(const key in element)
         {
@@ -69,4 +69,3 @@ export const actualizarTabla = (contenedor,data)=>{
     }
     contenedor.appendChild(crearTabla(data));
 };
-

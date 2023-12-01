@@ -258,3 +258,11 @@ td
     justify-content: space-evenly;
     align-items: center;
 }
+
+.pruebaCheckbox
+{
+    background-color: #af9d4c;
+    width: 65%;
+    margin-bottom: 5px;
+    align-self: center;
+}

@@ -5,7 +5,6 @@ const $seccionTabla = document.getElementById("tabla");
 const $formulario = document.forms.formulario;
 let listaMonstruos = [];
 
-/**codigo segundo parcial  */
 async function obtenerMonstruos(){ //traigo la lista del jsonserver
     try
     {
@@ -26,10 +25,33 @@ async function obtenerMonstruos(){ //traigo la lista del jsonserver
     }
 }
 
+//cargo lo ultimo q uso el usuario 
+function cargarSeleccionUsuario() 
+{
+    const selectedColumns = JSON.parse(localStorage.getItem('selectedColumns')) || [];
+    const checkboxes = document.querySelectorAll('.opcionesCheckbox');
+  
+    checkboxes.forEach(function (checkbox, index) {
+      checkbox.checked = selectedColumns.includes(index);
+      toggleColumn(index);
+    });
+  }
 
 document.addEventListener('DOMContentLoaded', async function(){
     await obtenerMonstruos(); //espero hasta traer la lista 
-    actualizarTabla($seccionTabla,listaMonstruos);
+    cargarSeleccionUsuario();
+
+    const miArray = JSON.parse(localStorage.getItem('armas')) // cargo el array de localstorage
+    const select = document.getElementById('miSelect'); // cargo opciones para el select
+
+    miArray.forEach(function(arma){
+        let opcion = document.createElement('option');
+        opcion.value = arma;
+        opcion.text = arma;
+        select.add(opcion);
+    });
+    //recien ahora actualizo la tabla despues de aplicar las selecciones del checkbox 
+    actualizarTabla($seccionTabla, listaMonstruos);
     calcularPromedio();
 });
 
@@ -40,21 +62,15 @@ $seccionTabla.addEventListener("click",(evento) =>{
         const selectedMonstruo = listaMonstruos.find((mons) => mons.id == id)
         
         cargarFormMonstruo($formulario,selectedMonstruo);
-        //console.log(id);
-
         document.getElementById("eliminar").style.display ="block";
     }
-    else if(evento.target.matches("button[value]='eliminar'"))
+    else if(evento.target.matches("button[value='eliminar']"))
     {
-        console.log("id: ", $formulario.txtId.value);
         const id = parseInt($formulario.txtId.value);
-        console.log("id brrado: ",id);
         handlerDelete(id);
-
         document.getElementById("eliminar").style.display = "none";
     }
 });
-
 
 /*filtro del tipo de monstruos */
 document.getElementById("btnFiltrar").addEventListener("click",()=>{
@@ -111,7 +127,6 @@ $formulario.addEventListener("submit",async (e) => {
 
 
 //PETICIONES AJAX
-
 function ajaxRequest(method, url, data = null)
 {
     return new Promise((resolve,reject) =>{
@@ -159,7 +174,7 @@ async function handlerCreate(nuevoMonstruo)
 
         setTimeout(()=>{
             actualizarTabla($seccionTabla,updatedData);
-            ocultarCarga();
+
         },2000);
 
         $formulario.reset();
@@ -169,7 +184,6 @@ async function handlerCreate(nuevoMonstruo)
         console.error(`Error ${error.status}: ${error.statusText}`)
     }
 
-    ocultarCarga();
 }
 
 async function handlerUpdate(editMonstruo)
@@ -186,14 +200,12 @@ async function handlerUpdate(editMonstruo)
         const updatedData = await obtenerMonstruos();       
         setTimeout(() => {
             actualizarTabla($seccionTabla, updatedData);           
-            ocultarCarga();
         }, 2000);
     }
     catch(error) 
     {
         console.error(`Error ${error.status}: ${error.statusText}`);
-        
-        ocultarCarga();
+
     }
 }
 
@@ -207,13 +219,12 @@ async function handlerDelete(id)
 
         setTimeout(() => {
             actualizarTabla($seccionTabla, updatedData);
-            ocultarCarga();
         }, 2000);
     } 
     catch(error) 
     {
         console.error(`Error ${error.response.status}: ${error.response.statusText}`);
-        ocultarCarga();
+
     }
 }
 
@@ -228,29 +239,26 @@ function cargarFormMonstruo(formulario,monstruo)
     console.log(monstruo.id);
 }
 
-
-// Función de validación 
 $formulario.addEventListener('submit', function (evento) {
-
     let check = true;
 
-    // Validar el campo nombre
-    if (!validarCampo()) {
+    if (!validarCampo()) 
+    {
         check = false;
     }
-
-    // Validar el campo alias
-    if (!validarCampo()) {
+    if (!validarCampo()) 
+    {
         check = false;
     }
-
-    if (!check) {
-        evento.preventDefault(); // Evitar el envío
+    //tienen que ser true ambos campos
+    if (!check) 
+    {
+        evento.preventDefault();
     }
 });
 
-function validarCampo() {
-    // console.log('entro aca');
+function validarCampo() 
+{
     let nombre = document.getElementById('nombre').value;
     let alias = document.getElementById('alias').value;
     
@@ -273,8 +281,19 @@ const armas = ['Esqueleto', 'Zombie', 'Vampiro', 'Fantasma', 'Bruja', 'Hombre lo
 localStorage.setItem('armas', JSON.stringify(armas));
 
 document.addEventListener('DOMContentLoaded', function(){
-    const miArray = JSON.parse(localStorage.getItem('armas'))// cargo el array de localstorage
-    const select = document.getElementById('miSelect'); //cargo opciones para el select
+
+    const selectedColumns = JSON.parse(localStorage.getItem('selectedColumns')) || [];
+    const checkboxes = document.querySelectorAll('.opcionesCheckbox');
+
+    checkboxes.forEach(function (checkbox, index) {
+        checkbox.checked = selectedColumns.includes(index);
+
+        //muestro las ultimas columnas que se seleccionaron
+        toggleColumn(index);
+    });
+
+    const miArray = JSON.parse(localStorage.getItem('armas')) // cargo el array de localstorage
+    const select = document.getElementById('miSelect'); // cargo opciones para el select
 
     miArray.forEach(function(arma){
         let opcion = document.createElement('option');
@@ -284,20 +303,11 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 });
 
-function ocultarCarga() 
-{
-    let loader = document.getElementById("spinner-container");
-    loader.style.display = "none";
-}
-/**fin codigo segundo parcial  */
-
 function mostrarSpinner() 
 {
     console.log("funcion mostrar spinne");
     if (validarCampo())
     {
-        //event.preventDefault(); // Evita la recarga de la página
-
         let spinnerCont = document.getElementById('spinner-container');
         spinnerCont.style.display = 'block';
 
@@ -324,6 +334,15 @@ function toggleColumn(columnIndex)
             cell.style.display = checkbox.checked ? "" : "none";
         });
     });
+
+    //almaceno lo q selecciono en el local 
+    let selectedColumns = [];
+    checkboxes.forEach(function (checkbox, index) {
+        if (checkbox.checked) {
+            selectedColumns.push(index);
+        }
+    });
+    localStorage.setItem('selectedColumns', JSON.stringify(selectedColumns));
 }
 
 window.toggleColumn = toggleColumn;
