@@ -39,8 +39,8 @@ function cargarSeleccionUsuario()
 
 document.addEventListener('DOMContentLoaded', async function(){
     await obtenerMonstruos(); //espero hasta traer la lista 
-    cargarSeleccionUsuario();
-
+    //cargarSeleccionUsuario();
+    cargarColumnasSeleccionadas();
     const miArray = JSON.parse(localStorage.getItem('armas')) // cargo el array de localstorage
     const select = document.getElementById('miSelect'); // cargo opciones para el select
 
@@ -343,6 +343,16 @@ function toggleColumn(columnIndex)
         }
     });
     localStorage.setItem('selectedColumns', JSON.stringify(selectedColumns));
+}
+
+function cargarColumnasSeleccionadas() {
+    const selectedColumns = JSON.parse(localStorage.getItem('selectedColumns')) || [];
+    const checkboxes = document.querySelectorAll('.opcionesCheckbox');
+
+    checkboxes.forEach(function (checkbox, index) {
+        checkbox.checked = selectedColumns.includes(index);
+        toggleColumn(index);
+    });
 }
 
 window.toggleColumn = toggleColumn;
