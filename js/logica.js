@@ -25,24 +25,13 @@ async function obtenerMonstruos(){ //traigo la lista del jsonserver
     }
 }
 
-//cargo lo ultimo q uso el usuario 
-function cargarSeleccionUsuario() 
-{
-    const selectedColumns = JSON.parse(localStorage.getItem('selectedColumns')) || [];
-    const checkboxes = document.querySelectorAll('.opcionesCheckbox');
-  
-    checkboxes.forEach(function (checkbox, index) {
-      checkbox.checked = selectedColumns.includes(index);
-      toggleColumn(index);
-    });
-  }
-
 document.addEventListener('DOMContentLoaded', async function(){
-    await obtenerMonstruos(); //espero hasta traer la lista 
-    //cargarSeleccionUsuario();
-    cargarColumnasSeleccionadas();
-    const miArray = JSON.parse(localStorage.getItem('armas')) // cargo el array de localstorage
-    const select = document.getElementById('miSelect'); // cargo opciones para el select
+    await obtenerMonstruos();
+    actualizarTabla($seccionTabla, listaMonstruos);
+    cargarColumnasSeleccionadas(); // Mueve esta línea aquí
+
+    const miArray = JSON.parse(localStorage.getItem('armas'));
+    const select = document.getElementById('miSelect');
 
     miArray.forEach(function(arma){
         let opcion = document.createElement('option');
@@ -50,9 +39,6 @@ document.addEventListener('DOMContentLoaded', async function(){
         opcion.text = arma;
         select.add(opcion);
     });
-    //recien ahora actualizo la tabla despues de aplicar las selecciones del checkbox 
-    actualizarTabla($seccionTabla, listaMonstruos);
-    calcularPromedio();
 });
 
 $seccionTabla.addEventListener("click",(evento) =>{
@@ -89,18 +75,19 @@ document.getElementById("btnFiltrar").addEventListener("click",()=>{
     }
 });
 
-function calcularPromedio(lista)
-{
-    const totalMiedo = lista.reduce((sum,mons) => sum + mons.miedo, 0);
-    const promedioMiedo = totalMiedo / lista.length;
-    document.getElementById("promedioMiedo").value = promedioMiedo.toFixed(2);
+function calcularPromedio(lista) {
+    setTimeout(() => {
+        const totalMiedo = lista.reduce((sum, mons) => sum + mons.miedo, 0);
+        const promedioMiedo = totalMiedo / lista.length;
+        document.getElementById("promedioMiedo").value = promedioMiedo.toFixed(2);
 
-    const miedo = lista.map((mons) => mons.miedo);
-    const miedoMaximo = Math.max(...miedo);
-    const miedoMinimo = Math.min(...miedo);
+        const miedo = lista.map((mons) => mons.miedo);
+        const miedoMaximo = Math.max(...miedo);
+        const miedoMinimo = Math.min(...miedo);
 
-    document.getElementById("miedoMaximo").value = miedoMaximo.toFixed(2);
-    document.getElementById("miedoMinimo").value = miedoMinimo.toFixed(2);
+        document.getElementById("miedoMaximo").value = miedoMaximo.toFixed(2);
+        document.getElementById("miedoMinimo").value = miedoMinimo.toFixed(2);
+    }, 2000); 
 }
 
 $formulario.addEventListener("submit",async (e) => {
@@ -159,72 +146,67 @@ function ajaxRequest(method, url, data = null)
     });
 }
 
-async function handlerCreate(nuevoMonstruo)
+async function handlerCreate(nuevoMonstruo) 
 {
-    try
-    {
-        if(!validarCampo())
-        {
+    try {
+        if (!validarCampo()) {
             return;
         }
 
         mostrarSpinner();
-        const response = await ajaxRequest('POST',URL,nuevoMonstruo);
-        const updatedData = await obtenerMonstruos();
-
-        setTimeout(()=>{
-            actualizarTabla($seccionTabla,updatedData);
-
-        },2000);
-
-        $formulario.reset();
-    }
-    catch(error)
-    {
-        console.error(`Error ${error.status}: ${error.statusText}`)
-    }
-
-}
-
-async function handlerUpdate(editMonstruo)
-{
-    try
-    {
-        if(!validarCampo())
-        {
-            return;
-        }
-
-        mostrarSpinner();
-        const response = await ajaxRequest('PUT', `${URL}/${editMonstruo.id}`, editMonstruo);        
-        const updatedData = await obtenerMonstruos();       
-        setTimeout(() => {
-            actualizarTabla($seccionTabla, updatedData);           
-        }, 2000);
-    }
-    catch(error) 
-    {
-        console.error(`Error ${error.status}: ${error.statusText}`);
-
-    }
-}
-
-async function handlerDelete(id)
-{
-    mostrarSpinner();
-    try 
-    {
-        const response = await axios.delete(`${URL}/${id}`);
+        const response = await ajaxRequest('POST', URL, nuevoMonstruo);
         const updatedData = await obtenerMonstruos();
 
         setTimeout(() => {
             actualizarTabla($seccionTabla, updatedData);
+            $formulario.reset();
+            document.getElementById("cancelar").style.display = "none";
         }, 2000);
-    } 
-    catch(error) 
-    {
-        console.error(`Error ${error.response.status}: ${error.response.statusText}`);
+    } catch (error) {
+        console.error(`Error ${error.status}: ${error.statusText}`);
+    }
+}
 
+async function handlerUpdate(editMonstruo) {
+    try {
+        if (!validarCampo()) {
+            return;
+        }
+
+        mostrarSpinner();
+        const response = await ajaxRequest('PUT', `${URL}/${editMonstruo.id}`, editMonstruo);
+        const updatedData = await obtenerMonstruos();
+
+        setTimeout(() => {
+            actualizarTabla($seccionTabla, updatedData);
+            $formulario.reset();
+            document.getElementById("cancelar").style.display = "none";
+        }, 2000);
+    } catch (error) {
+        console.error(`Error ${error.status}: ${error.statusText}`);
+    }
+}
+
+async function handlerDelete(id) {
+    mostrarSpinner();
+    try {
+        const response = await fetch(`${URL}/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw response;
+        }
+
+        const updatedData = await obtenerMonstruos();
+
+        setTimeout(() => {
+            actualizarTabla($seccionTabla, updatedData);
+            $formulario.reset();
+            document.getElementById("cancelar").style.display = "none";
+        }, 2000);
+    } catch (error) {
+        console.error(`Error ${error.status}: ${error.statusText}`);
     }
 }
 
@@ -237,7 +219,15 @@ function cargarFormMonstruo(formulario,monstruo)
     formulario.miedo.value = monstruo.miedo;
     formulario.tipo.value = monstruo.tipo;
     console.log(monstruo.id);
+    //muestro el boton cancelar
+    document.getElementById("cancelar").style.display = "block";
 }
+
+document.getElementById("cancelar").addEventListener("click", function () {
+    $formulario.reset();
+    document.getElementById("cancelar").style.display = "none";
+    document.getElementById("eliminar").style.display = "none";
+});
 
 $formulario.addEventListener('submit', function (evento) {
     let check = true;
@@ -277,35 +267,9 @@ function validarCampo()
     }
 }
 
-const armas = ['Esqueleto', 'Zombie', 'Vampiro', 'Fantasma', 'Bruja', 'Hombre lobo'];
-localStorage.setItem('armas', JSON.stringify(armas));
-
-document.addEventListener('DOMContentLoaded', function(){
-
-    const selectedColumns = JSON.parse(localStorage.getItem('selectedColumns')) || [];
-    const checkboxes = document.querySelectorAll('.opcionesCheckbox');
-
-    checkboxes.forEach(function (checkbox, index) {
-        checkbox.checked = selectedColumns.includes(index);
-
-        //muestro las ultimas columnas que se seleccionaron
-        toggleColumn(index);
-    });
-
-    const miArray = JSON.parse(localStorage.getItem('armas')) // cargo el array de localstorage
-    const select = document.getElementById('miSelect'); // cargo opciones para el select
-
-    miArray.forEach(function(arma){
-        let opcion = document.createElement('option');
-        opcion.value = arma;
-        opcion.text = arma;
-        select.add(opcion);
-    });
-});
-
 function mostrarSpinner() 
 {
-    console.log("funcion mostrar spinne");
+    console.log("funcion mostrar spinner");
     if (validarCampo())
     {
         let spinnerCont = document.getElementById('spinner-container');
@@ -323,19 +287,36 @@ function mostrarSpinner()
     }
 }
 
-function toggleColumn(columnIndex) 
+function cargarColumnasSeleccionadas() 
+{
+    const selectedColumns = JSON.parse(localStorage.getItem('selectedColumns')) || [];
+    const checkboxes = document.querySelectorAll('.opcionesCheckbox');
+
+    checkboxes.forEach(function (checkbox, index) {
+        toggleColumnState(checkbox, index, selectedColumns.includes(index));
+    });
+}
+
+function toggleColumnState(checkbox, columnIndex, isChecked) 
 {
     let table = document.getElementById("tabla");
+    let column = table.querySelectorAll(`td:nth-child(${columnIndex + 1}), th:nth-child(${columnIndex + 1})`);
+
+    column.forEach(function (cell) {
+        cell.style.display = isChecked ? "" : "none";
+    });
+
+    checkbox.checked = isChecked;
+}
+
+window.toggleColumn = function (columnIndex) {
     let checkboxes = document.querySelectorAll('.opcionesCheckbox');
 
     checkboxes.forEach(function (checkbox, index) {
-        let column = table.querySelectorAll(`td:nth-child(${columnIndex + 1}), th:nth-child(${columnIndex + 1})`);
-        column.forEach(function (cell) {
-            cell.style.display = checkbox.checked ? "" : "none";
-        });
+        toggleColumnState(checkbox, columnIndex, checkbox.checked);
     });
 
-    //almaceno lo q selecciono en el local 
+    //almaceno lo que selecciono en el local 
     let selectedColumns = [];
     checkboxes.forEach(function (checkbox, index) {
         if (checkbox.checked) {
@@ -343,16 +324,4 @@ function toggleColumn(columnIndex)
         }
     });
     localStorage.setItem('selectedColumns', JSON.stringify(selectedColumns));
-}
-
-function cargarColumnasSeleccionadas() {
-    const selectedColumns = JSON.parse(localStorage.getItem('selectedColumns')) || [];
-    const checkboxes = document.querySelectorAll('.opcionesCheckbox');
-
-    checkboxes.forEach(function (checkbox, index) {
-        checkbox.checked = selectedColumns.includes(index);
-        toggleColumn(index);
-    });
-}
-
-window.toggleColumn = toggleColumn;
+};

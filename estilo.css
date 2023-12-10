@@ -255,7 +255,6 @@ td
 .contenedor-filtros
 {
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -265,4 +264,10 @@ td
     width: 65%;
     margin-bottom: 5px;
     align-self: center;
+}
+
+.custom-select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(14, 77, 145, 0.5); 
 }
