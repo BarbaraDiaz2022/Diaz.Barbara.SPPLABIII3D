@@ -112,7 +112,6 @@ $formulario.addEventListener("submit",async (e) => {
     calcularPromedio();
 });
 
-
 //PETICIONES AJAX
 function ajaxRequest(method, url, data = null)
 {
