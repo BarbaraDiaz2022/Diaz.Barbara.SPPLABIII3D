@@ -51,7 +51,6 @@ const crearCuerpo = (data) =>{
                 const td = document.createElement("td");
                 td.textContent = element[key];
 
-
                 tr.appendChild(td);
             }
         }

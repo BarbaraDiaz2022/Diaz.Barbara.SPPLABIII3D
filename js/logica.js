@@ -28,7 +28,7 @@ async function obtenerMonstruos(){ //traigo la lista del jsonserver
 document.addEventListener('DOMContentLoaded', async function(){
     await obtenerMonstruos();
     actualizarTabla($seccionTabla, listaMonstruos);
-    cargarColumnasSeleccionadas(); // Mueve esta línea aquí
+    cargarColumnasSeleccionadas();
 
     const miArray = JSON.parse(localStorage.getItem('armas'));
     const select = document.getElementById('miSelect');
@@ -75,7 +75,8 @@ document.getElementById("btnFiltrar").addEventListener("click",()=>{
     }
 });
 
-function calcularPromedio(lista) {
+function calcularPromedio(lista) 
+{
     setTimeout(() => {
         const totalMiedo = lista.reduce((sum, mons) => sum + mons.miedo, 0);
         const promedioMiedo = totalMiedo / lista.length;
@@ -148,7 +149,8 @@ function ajaxRequest(method, url, data = null)
 async function handlerCreate(nuevoMonstruo) 
 {
     try {
-        if (!validarCampo()) {
+        if (!validarCampo())
+        {
             return;
         }
 
@@ -166,7 +168,8 @@ async function handlerCreate(nuevoMonstruo)
     }
 }
 
-async function handlerUpdate(editMonstruo) {
+async function handlerUpdate(editMonstruo) 
+{
     try {
         if (!validarCampo()) {
             return;
@@ -186,7 +189,8 @@ async function handlerUpdate(editMonstruo) {
     }
 }
 
-async function handlerDelete(id) {
+async function handlerDelete(id) 
+{
     mostrarSpinner();
     try {
         const response = await fetch(`${URL}/${id}`, {
@@ -315,12 +319,12 @@ window.toggleColumn = function (columnIndex) {
         toggleColumnState(checkbox, columnIndex, checkbox.checked);
     });
 
-    //almaceno lo que selecciono en el local 
     let selectedColumns = [];
     checkboxes.forEach(function (checkbox, index) {
         if (checkbox.checked) {
             selectedColumns.push(index);
         }
     });
+
     localStorage.setItem('selectedColumns', JSON.stringify(selectedColumns));
 };
