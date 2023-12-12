@@ -77,7 +77,13 @@ document.getElementById("btnFiltrar").addEventListener("click",()=>{
 
 function calcularPromedio(lista) 
 {
-    setTimeout(() => {
+    if(lista === null) //agrego la validacion para que espere los 2 segundos a que cargue la lista con la tabla y no muestre 
+    {                   //error en el reduce 
+        console.log("La lista se esta cargando todavía.");
+        document.getElementById("promedioMiedo").value = 0;
+        document.getElementById("miedoMaximo").value = 0;
+        document.getElementById("miedoMinimo").value = 0;
+    }
         const totalMiedo = lista.reduce((sum, mons) => sum + mons.miedo, 0);
         const promedioMiedo = totalMiedo / lista.length;
         document.getElementById("promedioMiedo").value = promedioMiedo.toFixed(2);
@@ -88,7 +94,6 @@ function calcularPromedio(lista)
 
         document.getElementById("miedoMaximo").value = miedoMaximo.toFixed(2);
         document.getElementById("miedoMinimo").value = miedoMinimo.toFixed(2);
-    }, 2000); 
 }
 
 $formulario.addEventListener("submit",async (e) => {
