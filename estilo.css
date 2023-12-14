@@ -223,7 +223,7 @@ td
 .miedoMaximaLabel,
 .miedoMinimoLabel 
 {
-    margin-left: 500px;
+    margin-left: 400px;
     display: block;
     margin-bottom: 5px; 
 }
@@ -232,7 +232,7 @@ td
 #miedoMaximo,
 #miedoMinimo 
 {
-    margin-left: 500px;
+    margin-left: 400px;
     color: rgb(0, 0, 0);
     font-weight: 30px;
     width: 20%;
@@ -261,9 +261,8 @@ td
 .pruebaCheckbox
 {
     background-color: #af9d4c;
-    width: 65%;
-    margin-bottom: 5px;
-    align-self: center;
+    width: 80%;
+    margin-bottom: 10px;
 }
 
 .custom-select:focus {
