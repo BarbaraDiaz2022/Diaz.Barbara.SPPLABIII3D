@@ -115,16 +115,16 @@ function cargarColumnasSeleccionadas()
     }
 }
 
-$seccionTabla.addEventListener("click",(evento) =>{
-    if(evento.target.matches("td"))
+$seccionTabla.addEventListener("click", (evento) => {
+    if (evento.target.matches("td")) 
     {
         const id = evento.target.parentElement.dataset.id;
         const selectedMonstruo = listaMonstruos.find((mons) => mons.id == id)
-        
-        cargarFormMonstruo($formulario,selectedMonstruo);
-        document.getElementById("eliminar").style.display ="block";
-    }
-    else if(evento.target.matches("button[value='eliminar']"))
+
+        cargarFormMonstruo($formulario, selectedMonstruo);
+        document.getElementById("eliminar").style.display = "block";
+    } 
+    else if (evento.target.matches("button[value='eliminar']")) 
     {
         const id = parseInt($formulario.txtId.value);
         handlerDelete(id);
@@ -132,11 +132,10 @@ $seccionTabla.addEventListener("click",(evento) =>{
     }
 });
 
-/*filtro del tipo de monstruos */
-document.getElementById("filtroTipoDropdown").addEventListener("change", () => {
 
-    const tipoSeleccionado = document.getElementById("filtroTipoDropdown").value;
-
+document.getElementById("btnFiltrar").addEventListener("click", () => {
+    const tipoSeleccionado = document.getElementById("selectFiltroTipo").value;
+    
     if (tipoSeleccionado === "Todos") {
         actualizarTabla($seccionTabla, listaMonstruos);
         calcularPromedio(listaMonstruos);
@@ -268,8 +267,11 @@ async function handlerUpdate(editMonstruo)
 
 async function handlerDelete(id) 
 {
+    console.log("Entrando a handlerDelete con id:", id);
+
     mostrarSpinner();
-    try {
+    try 
+    {
         const response = await fetch(`${URL}/${id}`, {
             method: 'DELETE',
         });
@@ -279,13 +281,16 @@ async function handlerDelete(id)
         }
 
         const updatedData = await obtenerMonstruos();
+        console.log("Saliendo de handlerDelete"); 
 
         setTimeout(() => {
             actualizarTabla($seccionTabla, updatedData);
             $formulario.reset();
             document.getElementById("cancelar").style.display = "none";
         }, 2000);
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error(`Error ${error.status}: ${error.statusText}`);
     }
 }

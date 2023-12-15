@@ -104,20 +104,20 @@
             </form>
             
             <div class="input-group">
-
-                <div class="dropdown" id="filtroTipoDropdown">
-                    <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Filtrar por Tipo</button> 
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" value="Todos" >Todos</a>
-                    <a class="dropdown-item" value="Vampiro">Vampiro</a>
-                    <a class="dropdown-item" value="Hombre lobo">Hombre lobo</a>
-                    <a class="dropdown-item" value="Fantasma">Fantasma</a>
-                    <a class="dropdown-item" value="Esqueleto">Esqueleto</a>
-                    <a class="dropdown-item" value="Bruja">Bruja</a>
-                    <a class="dropdown-item" value="Zombie">Zombie</a>
-                </div>   
-                </div>
-    
+                <section id="filtroMonstruos">
+                    <h2>Filtrar por Tipo</h2>       
+                    <select id="selectFiltroTipo">
+                    <option value="Todos">Todos</option>
+                    <option value="Vampiro">Vampiro</option>
+                    <option value="Hombre Lobo">Hombre Lobo</option>
+                    <option value="Fantasma">Fantasma</option>
+                    <option value="Esqueleto">Esqueleto</option>
+                    <option value="Bruja">Bruja</option>
+                    <option value="Zombie">Zombie</option>
+                    </select>
+                    <button id="btnFiltrar">Filtrar</button>
+                </section>
+          
                 <section class="contenedor-promedios-checkboxes">
                     <label for="promedioMiedo" class="promedioMiedoLabel">Promedio total de Miedo:</label>
                     <input type="text" id="promedioMiedo" readonly>

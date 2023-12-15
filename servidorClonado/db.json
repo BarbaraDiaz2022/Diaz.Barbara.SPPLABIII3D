@@ -26,24 +26,24 @@
     },
     {
       "id": 4,
-      "nombre": "muggy",
-      "alias": "Gerant",
-      "defensa": "pocion",
-      "miedo": 60,
-      "tipo": "Esqueleto"
+      "nombre": "Anthony",
+      "alias": "Ant-man",
+      "defensa": "plata",
+      "miedo": 6,
+      "tipo": "Fantasma"
     },
     {
       "id": 5,
-      "nombre": "Tuckie",
-      "alias": "Braun",
+      "nombre": "esteban",
+      "alias": "el hombre sin rostro",
       "defensa": "crucifijo",
-      "miedo": 32,
-      "tipo": "Hombre lobo"
+      "miedo": 85,
+      "tipo": "Fantasma"
     },
     {
       "id": 1701442462772,
       "nombre": "Barb",
-      "alias": "Barba Negra",
+      "alias": "Barba",
       "defensa": "estaca",
       "miedo": 18,
       "tipo": "Vampiro"
