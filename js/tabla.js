@@ -11,18 +11,17 @@ export const crearTabla = (data)=>{
     return tabla;
 };
 
-const crearCabecera = (elemento) =>{
+const crearCabecera = (elemento) => {
     const tHead = document.createElement("thead");
-    let headRow = document.createElement("tr"); 
+    let headRow = document.createElement("tr");
 
-    for(const key in elemento)
-    {
-        if(key === "id")
-        {
+    for (const key in elemento) {
+        if (key === "id") {
             continue;
         }
         const th = document.createElement("th");
         th.textContent = key;
+        th.classList.add(`col-${key.toLowerCase()}`); // Agrega una clase a cada celda de la cabecera
         headRow.appendChild(th);
     }
 
@@ -30,27 +29,21 @@ const crearCabecera = (elemento) =>{
     return tHead;
 };
 
-const crearCuerpo = (data) =>{
-
-    if(!Array.isArray(data)) return null;
+const crearCuerpo = (data) => {
+    if (!Array.isArray(data)) return null;
 
     const tBody = document.createElement("tbody");
 
     data.forEach((element) => {
-
         const tr = document.createElement("tr");
-        
-        for(const key in element)
-        {
-            if(key === "id")
-            {
+
+        for (const key in element) {
+            if (key === "id") {
                 tr.dataset.id = element[key];
-            }
-            else
-            {
+            } else {
                 const td = document.createElement("td");
                 td.textContent = element[key];
-
+                td.classList.add(`col-${key.toLowerCase()}`); // Agrega una clase a cada celda del cuerpo
                 tr.appendChild(td);
             }
         }
@@ -59,7 +52,6 @@ const crearCuerpo = (data) =>{
 
     return tBody;
 };
-
 
 export const actualizarTabla = (contenedor,data)=>{
     while(contenedor.hasChildNodes())

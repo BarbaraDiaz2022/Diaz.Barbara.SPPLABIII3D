@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap');
+
 header 
 {
     display: flex;
@@ -19,13 +21,25 @@ header a img
     font-size: 25px;
 }
 
-nav a 
-{ 
-    color: black;
-    margin-left: 40px;
-    margin-right: 40px;
-    padding: 8px;
-    font-size: 25px;    
+header a img
+{
+    width: 100px;
+    vertical-align: middle;
+    margin-right: 15px;
+    font-size: 25px;
+}
+header a {
+    color: #c7e9c2;
+    font-weight: 3000;
+}.navbar a {
+    margin-left: 30px;
+    margin-right: 30px;
+    padding: 15px;
+    font-size: 20px;
+}
+
+.navbar a:hover {
+    background: rgba(244, 241, 71, 0.408);
 }
 
 body
@@ -239,30 +253,29 @@ td
     box-sizing: border-box;
 }
 
+#chkNombre,
+#chkAlias,
+#chkDefensa,
+#chkMiedo,
+#chkTipo
+{
+    margin-right: 10px;
+}
 
-.opcionesCheckboxContainer 
+#controlesColumnas  
 {
     display: flex;
     align-items: center;
-}
-
-
-.opcionesCheckbox 
-{
-    margin-right: 5px;
+    background-color: #c4a623;
+    width: 39%;
+    margin-bottom: 10px;
+    margin-left: 350px;
 }
 
 .contenedor-filtros
 {
     display: flex;
     align-items: center;
-}
-
-.pruebaCheckbox
-{
-    background-color: #af9d4c;
-    width: 80%;
-    margin-bottom: 10px;
 }
 
 .custom-select:focus {

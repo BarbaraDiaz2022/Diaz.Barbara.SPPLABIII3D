@@ -28,10 +28,14 @@ async function obtenerMonstruos(){ //traigo la lista del jsonserver
 document.addEventListener('DOMContentLoaded', async function(){
     await obtenerMonstruos();
     actualizarTabla($seccionTabla, listaMonstruos);
-    cargarColumnasSeleccionadas();
-
+   
     const miArray = JSON.parse(localStorage.getItem('armas'));
     const select = document.getElementById('miSelect');
+    const chkNombre = document.getElementById("chkNombre");
+    const chkAlias = document.getElementById("chkAlias");
+    const chkDefensa = document.getElementById("chkDefensa");
+    const chkMiedo = document.getElementById("chkMiedo");
+    const chkTipo = document.getElementById("chkTipo");
 
     miArray.forEach(function(arma){
         let opcion = document.createElement('option');
@@ -39,7 +43,77 @@ document.addEventListener('DOMContentLoaded', async function(){
         opcion.text = arma;
         select.add(opcion);
     });
+    
+
+    chkNombre.addEventListener("change", function () {
+        toggleColumnVisibility("col-nombre", chkNombre.checked);
+        guardarColumnasSeleccionadas();
+    });
+
+    chkAlias.addEventListener("change", function () {
+        toggleColumnVisibility("col-alias", chkAlias.checked);
+        guardarColumnasSeleccionadas();
+    });
+
+    chkDefensa.addEventListener("change", function () {
+        toggleColumnVisibility("col-defensa", chkDefensa.checked);
+        guardarColumnasSeleccionadas();
+    });
+
+    chkMiedo.addEventListener("change", function () {
+        toggleColumnVisibility("col-miedo", chkMiedo.checked);
+        guardarColumnasSeleccionadas();
+    });
+    
+    chkTipo.addEventListener("change", function () {
+        toggleColumnVisibility("col-tipo", chkTipo.checked);
+        guardarColumnasSeleccionadas();
+    });
+
+    cargarColumnasSeleccionadas();
+    calcularPromedio(listaMonstruos);
 });
+
+function toggleColumnVisibility(claseColumna, isVisible) 
+{
+    const celdas = document.querySelectorAll(`.${claseColumna}`);
+    celdas.forEach(function (celda) {
+        celda.style.display = isVisible ? "" : "none";
+    });
+}
+
+function guardarColumnasSeleccionadas() 
+{
+    const columnasSeleccionadas = {
+        chkNombre: chkNombre.checked,
+        chkAlias: chkAlias.checked,
+        chkDefensa: chkDefensa.checked,
+        chkMiedo: chkMiedo.checked,
+        chkTipo: chkTipo.checked,
+    };
+
+    localStorage.setItem('columnasSeleccionadas', JSON.stringify(columnasSeleccionadas));
+}
+
+function cargarColumnasSeleccionadas() 
+{
+    const columnasSeleccionadas = JSON.parse(localStorage.getItem('columnasSeleccionadas'));
+
+    if (columnasSeleccionadas) 
+    {
+        chkNombre.checked = columnasSeleccionadas.chkNombre;
+        chkAlias.checked = columnasSeleccionadas.chkAlias;
+        chkDefensa.checked = columnasSeleccionadas.chkDefensa;
+        chkMiedo.checked = columnasSeleccionadas.chkMiedo;
+        chkTipo.checked = columnasSeleccionadas.chkTipo;
+
+        toggleColumnVisibility("col-nombre", chkNombre.checked);
+        toggleColumnVisibility("col-alias", chkAlias.checked);
+        toggleColumnVisibility("col-defensa", chkDefensa.checked);
+        toggleColumnVisibility("col-miedo", chkMiedo.checked);
+        toggleColumnVisibility("col-tipo", chkTipo.checked);
+    }
+}
 
 $seccionTabla.addEventListener("click",(evento) =>{
     if(evento.target.matches("td"))
@@ -59,18 +133,16 @@ $seccionTabla.addEventListener("click",(evento) =>{
 });
 
 /*filtro del tipo de monstruos */
-document.getElementById("btnFiltrar").addEventListener("click",()=>{
-    const tipoSeleccionado = document.getElementById("selectFiltroTipo").value;
+document.getElementById("filtroTipoDropdown").addEventListener("change", () => {
 
-    if(tipoSeleccionado === "Todos")
-    {
-        actualizarTabla($seccionTabla,listaMonstruos);
-        calcularPromedio(listaMonstruos); //calculo el promedio de los monstruos filtrados
-    }
-    else
-    {
+    const tipoSeleccionado = document.getElementById("filtroTipoDropdown").value;
+
+    if (tipoSeleccionado === "Todos") {
+        actualizarTabla($seccionTabla, listaMonstruos);
+        calcularPromedio(listaMonstruos);
+    } else {
         const monstruosFiltrados = listaMonstruos.filter((mons) => mons.tipo === tipoSeleccionado);
-        actualizarTabla($seccionTabla,monstruosFiltrados);
+        actualizarTabla($seccionTabla, monstruosFiltrados);
         calcularPromedio(monstruosFiltrados);
     }
 });
@@ -79,7 +151,7 @@ function calcularPromedio(lista)
 {
     if(lista === null) //agrego la validacion para que espere los 2 segundos a que cargue la lista con la tabla y no muestre 
     {                   //error en el reduce 
-        console.log("La lista se esta cargando todavía.");
+        console.log("la lista se esta cargando todavia");
         document.getElementById("promedioMiedo").value = 0;
         document.getElementById("miedoMaximo").value = 0;
         document.getElementById("miedoMinimo").value = 0;
@@ -294,42 +366,3 @@ function mostrarSpinner()
         return false;
     }
 }
-
-function cargarColumnasSeleccionadas() 
-{
-    const selectedColumns = JSON.parse(localStorage.getItem('selectedColumns')) || [];
-    const checkboxes = document.querySelectorAll('.opcionesCheckbox');
-
-    checkboxes.forEach(function (checkbox, index) {
-        toggleColumnState(checkbox, index, selectedColumns.includes(index));
-    });
-}
-
-function toggleColumnState(checkbox, columnIndex, isChecked) 
-{
-    let table = document.getElementById("tabla");
-    let column = table.querySelectorAll(`td:nth-child(${columnIndex + 1}), th:nth-child(${columnIndex + 1})`);
-
-    column.forEach(function (cell) {
-        cell.style.display = isChecked ? "" : "none";
-    });
-
-    checkbox.checked = isChecked;
-}
-
-window.toggleColumn = function (columnIndex) {
-    let checkboxes = document.querySelectorAll('.opcionesCheckbox');
-
-    checkboxes.forEach(function (checkbox, index) {
-        toggleColumnState(checkbox, columnIndex, checkbox.checked);
-    });
-
-    let selectedColumns = [];
-    checkboxes.forEach(function (checkbox, index) {
-        if (checkbox.checked) {
-            selectedColumns.push(index);
-        }
-    });
-
-    localStorage.setItem('selectedColumns', JSON.stringify(selectedColumns));
-};

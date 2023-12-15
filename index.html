@@ -7,20 +7,40 @@
         
         <link rel="icon" type="image/jpg" href="Imagenes labo/logo.jpg">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <script src="./js/logica.js" type="module" defer></script>
         <title>Halloween</title>
     </head>
 
     <body>
-        <header>
-            <a href="index.html"> <img src="Imagenes labo/logo.jpg" alt="logo"> </a>
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="infoMonstruos.html">Monstruos</a>
-                <a href="#blog">Blog</a>
-                <a href="#contacto">Contacto</a>
-            </nav>
-        </header>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <a href="index.html"> </a>
+        
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html"> <img src="Imagenes labo/logo.jpg" alt ="logo" width="50px"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="infoMonstruos.html">Monstruos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Blog</a>
+                        </li>    
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contacto</a>
+                        </li>   
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
         <main>
             <form id="formulario">
@@ -83,21 +103,20 @@
                 </section>
             </form>
             
-            <div class="contenedor-filtros">
-                <section id="filtroMonstruos">
-                    <h2>Filtrar por Tipo de Monstruo</h2>
-                    <select id="selectFiltroTipo" class="custom-select" aria-label="Filtrar por Tipo de Monstruo">
-                        <option value="Todos">Todos</option>
-                        <option value="Vampiro">Vampiro</option>
-                        <option value="Hombre Lobo">Hombre Lobo</option>
-                        <option value="Fantasma">Fantasma</option>
-                        <option value="Esqueleto">Esqueleto</option>
-                        <option value="Bruja">Bruja</option>
-                        <option value="Zombie">Zombie</option>
-                    </select>
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-                    <button id="btnFiltrar" class="btn btn-primary">Filtrar</button>
-                </section>
+            <div class="input-group">
+
+                <div class="dropdown" id="filtroTipoDropdown">
+                    <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Filtrar por Tipo</button> 
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" value="Todos" >Todos</a>
+                    <a class="dropdown-item" value="Vampiro">Vampiro</a>
+                    <a class="dropdown-item" value="Hombre lobo">Hombre lobo</a>
+                    <a class="dropdown-item" value="Fantasma">Fantasma</a>
+                    <a class="dropdown-item" value="Esqueleto">Esqueleto</a>
+                    <a class="dropdown-item" value="Bruja">Bruja</a>
+                    <a class="dropdown-item" value="Zombie">Zombie</a>
+                </div>   
+                </div>
     
                 <section class="contenedor-promedios-checkboxes">
                     <label for="promedioMiedo" class="promedioMiedoLabel">Promedio total de Miedo:</label>
@@ -108,28 +127,26 @@
         
                     <label for="miedoMinimo" class="miedoMinimoLabel">Miedo minimo:</label>
                     <input type="text" id="miedoMinimo" readonly>
-        
-        
-                    <div class = "pruebaCheckbox">
-                        <!--prueba de checkbox-->
-                        <input type="checkbox" class ="opcionesCheckbox" id="chkNombre" onclick="toggleColumn(0)" checked>
-                        <label for="chkNombre">Nombre</label>
-            
-                        <input type="checkbox" class ="opcionesCheckbox" id="chkAlias" onclick="toggleColumn(1)" checked>
-                        <label for="chkAlias">Alias</label>
-            
-                        <input type="checkbox" class ="opcionesCheckbox" id="chkDefensa" onclick="toggleColumn(2)" checked>
-                        <label for="chkDefensa">Defensa</label>
-            
-                        <input type="checkbox" class ="opcionesCheckbox" id="chkMiedo" onclick="toggleColumn(3)" checked>
-                        <label for="chkMiedo">Miedo</label>
-            
-                        <input type="checkbox" class ="opcionesCheckbox" id="chkTipo" onclick="toggleColumn(4)" checked>
-                        <label for="chkTipo">Tipo</label>
-                    </div>
-                    
                 </section>
             </div>
+
+            <section id="controlesColumnas">
+                <label for="chkNombre">Nombre</label>
+                <input type="checkbox" id="chkNombre" checked>
+            
+                <label for="chkAlias">Alias</label>
+                <input type="checkbox" id="chkAlias" checked>
+                
+                <label for="chkDefensa">Defensa</label>
+                <input type="checkbox" id="chkDefensa" checked>
+
+                <label for="chkMiedo">Miedo</label>
+                <input type="checkbox" id="chkMiedo" checked>
+
+                <label for="chkTipo">Tipo</label>
+                <input type="checkbox" id="chkTipo" checked>
+                
+            </section>
 
             <section id="tabla"></section>
         </main>
@@ -137,5 +154,17 @@
         <footer>
             <p>LABORATORIO III-TODOS LOS DERECHOS RESERVADOS 2023©</p>
         </footer>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous">
+        </script>
     </body>
 </html>
